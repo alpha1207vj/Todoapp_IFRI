@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List CRUD</title>
+
+  <!-- Import React et Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Css de base -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 400px;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .input-group {
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+    }
+
+    button {
+      padding: 8px 12px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #f0f0f0;
+      margin-bottom: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .actions button {
+      margin-left: 5px;
+      border-radius: 5px;
+      background: #ff6666;
+    }
+
+    .actions button.edit {
+      background: #28a745;
+    }
+
+    .actions button:hover {
+      opacity: 0.8;
+    }
+
+    .empty {
+      text-align: center;
+      color: gray;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function TodoApp() {
+      const [tasks, setTasks] = useState([]);
+      const [newTask, setNewTask] = useState('');
+      const [editingIndex, setEditingIndex] = useState(null);
+      const [editText, setEditText] = useState('');
+
+      // Ajouter une tâche
+      const addTask = () => {
+        if (newTask.trim() === '') return;
+        setTasks([...tasks, newTask]);
+        setNewTask('');
+      };
+
+      // Supprimer une tâche
+      const deleteTask = (index) => {
+        const updated = tasks.filter((_, i) => i !== index);
+        setTasks(updated);
+      };
+
+      // Commencer l'édition
+      const startEdit = (index) => {
+        setEditingIndex(index);
+        setEditText(tasks[index]);
+      };
+
+      // Sauvegarder l'édition
+      const saveEdit = (index) => {
+        const updated = tasks.map((task, i) =>
+          i === index ? editText : task
+        );
+        setTasks(updated);
+        setEditingIndex(null);
+        setEditText('');
+      };
+
+      return (
+        <div className="container">
+          <h1>📝 To-Do List CRUD</h1>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Ajouter une tâche..."
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+            />
+            <button onClick={addTask}>Ajouter</button>
+          </div>
+
+          {tasks.length === 0 ? (
+            <p className="empty">Vous n'avez aucune tâche pour le moment.</p>
+          ) : (
+            <ul>
+              {tasks.map((task, index) => (
+                <li key={index}>
+                  {editingIndex === index ? (
+                    <>
+                      <input
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                      />
+                      <div className="actions">
+                        <button className="edit" onClick={() => saveEdit(index)}>✅</button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <span>{task}</span>
+                      <div className="actions">
+                        <button className="edit" onClick={() => startEdit(index)}>🖋</button>
+                        <button onClick={() => deleteTask(index)}>🗑️</button>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<TodoApp />);
+  </script>
+</body>
+</html>
