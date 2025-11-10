@@ -1,0 +1,250 @@
+:root
+{
+    --background-color: #1b263b;
+    --font-family-global : 'Fraunces';
+    --border-radius-global : 10px;
+    --padding-inline-global : 10px;
+    --height-input-global : 30px;
+    --default-non-border-button: none;
+    --color-text : #fff;
+    --button_color : #00b4d8;
+    --container-color:  #0d1b2a;
+}
+
+html,body{
+    height: 100%;
+}
+body{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   background-color: var(--background-color);
+   font-family: var(--font-family-global);
+   overflow-x: auto;
+   position: relative;
+}
+.no_tasks
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.no_tasks p
+{
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+.todo_container
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-350px);
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: var(--container-color);
+    width: 700px;
+    min-height: 300px;
+    border-radius: var(--border-radius-global);
+    padding-block: var(--padding-inline-global);
+     transform-origin: top; 
+}
+.todo_input
+{
+    padding-inline: var(--padding-inline-global);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 20%;
+    gap: 10px;
+}
+.todo_input input
+{
+    height: var(--height-input-global);
+    width: 40%;
+    border-radius: var(--border-radius-global);
+    border: var(--default-non-border-button);
+    font-family: var(--font-family-global);
+    color: var(--color-text);
+    padding-left: var(--padding-inline-global);
+    outline-width: 1px;
+    outline-color: #fff;
+    background-color: var(--background-color);
+     -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-sizing: border-box;
+        box-sizing: border-box;
+    
+}
+.todo_input select
+{
+    height: var(--height-input-global);
+    width: 40%;
+    border-radius: var(--border-radius-global);
+    border: var(--default-non-border-button);
+    font-family: var(--font-family-global);
+    color: var(--color-text);
+    outline-color: #fff;
+    background-color: var(--background-color);
+    -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-sizing: border-box;
+        box-sizing: border-box;
+}
+.todo_input button
+{
+    height: var(--height-input-global);
+    flex: 1;
+    border-radius: var(--border-radius-global);
+    border: var(--default-non-border-button);
+    font-family: var(--font-family-global);
+    background-color: var(--button_color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.todo_buttons
+{
+ height: 50px;
+ display: flex;
+ align-items: cente;
+ justify-content: flex-start ;
+ gap: 20px;
+ padding-inline: var(--padding-inline-global);
+ padding-block: var(--padding-inline-global);
+}
+.todo_buttons button{
+    border-radius: var(--border-radius-global);
+    border: var(--default-non-border-button);
+    width: 15%;
+    height: 40px;
+    font-family: var(--font-family-global);
+    background-color: var(--background-color);
+    color: var(--color-text);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.todo_buttons button:hover
+{
+    background-color: var(--container-color);
+}
+.todo_buttons button:active
+{
+    background-color: var(--button_color);
+    transition : none;
+}
+.todo_buttons div 
+{
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+}
+.todo_buttons div button
+{
+    border-radius: var(--border-radius-global);
+    border: var(--default-non-border-button);
+    width:  80%;
+    height: 40px;
+    font-family: var(--font-family-global);
+   background-color: rgba(128, 128, 128, 0.179);
+   color: gray;
+}
+
+
+.todo_list
+{
+    flex: 1;
+    padding-inline: var(--padding-inline-global);
+}
+.todo_list ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.todo_list ul li
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.todo_list ul li input 
+{
+    margin: 0;
+    cursor: pointer;
+
+}
+.todo_list ul li label 
+{
+
+    background-color: red;
+     display: inline-block;
+  position: relative;
+  padding-left: 30px; /* space for the fake checkbox */
+  cursor: pointer;
+  user-select: none;
+}
+.todo_list ul li label::before
+{
+    content: "";
+  position: absolute;
+  left: 0;
+  top: -6px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #00b4d8;
+  border-radius: 4px; /* rounded corners, optional */
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.todo_list ul li input[type="checkbox"]:checked +  .custom-checkbox::before {
+  background-color: #00b4d8;
+  border-color: #00b4d8;
+}
+
+.todo_list ul li div
+{
+    width: 100%;
+    padding-inline-start: var(--padding-inline-global);
+    padding-block: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.todo_list ul li div span 
+{
+    color: var(--color-text);
+    font-weight: bold;
+}
+.todo_list ul li div button
+{
+    border: var(--default-non-border-button);
+    border-radius: var(--border-radius-global);
+    font-family: var(--font-family-global);
+}
+.todo_list ul li .task_delete
+{
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    border: var(--default-non-border-button);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:  rgba(128, 128, 128, 0.179);
+    cursor: pointer;
+}
+
